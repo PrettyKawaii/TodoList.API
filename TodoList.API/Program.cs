@@ -1,7 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); 
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Greetings! Soon enough I'll rule the world!");
-app.MapGet("/map_get", () => "A bit of testing how .MapGet() works.");
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+app.MapControllers();
 app.Run();
